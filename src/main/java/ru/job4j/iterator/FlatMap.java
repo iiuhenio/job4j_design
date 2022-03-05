@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Collections;
 
+/**
+ * Класс FlatMap принимает объект вложенных итераторов.
+ * В классе нужно реализовать метод: next и hasNext.
+ * Метод next должен последовательно вернуть числа из вложенных итераторов.
+ */
 public class FlatMap<T> implements Iterator<T> {
     private final Iterator<Iterator<T>> data;
     /**
@@ -18,7 +23,12 @@ public class FlatMap<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        while (data.hasNext()) {
+        /**
+         * проверяем два условия:
+         * 1. в итераторе итераторов есть итератор к выдаче,
+         * 2. текущий итератор пустой, то есть в нем элементов к выдаче нет.
+         */
+        while (data.hasNext() && !cursor.hasNext()) {
             cursor = data.next();
         }
         return cursor.hasNext();
