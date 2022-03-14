@@ -3,6 +3,13 @@ package ru.job4j.collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * В этом задании необходимо реализовать метод delete для односвязного списка.
+ *  Для организации однотипных данных мы использовали массивы. Есть другой способ решить эту задачу.
+ * Объекты - это ссылочные типы.
+ * Значит, можно создать цепочку ссылок и таким образом организовать контейнер для данных.
+ * @param <T>
+ */
 public class ForwardLinked<T> implements Iterable<T> {
     private Node<T> head;
 
@@ -23,8 +30,12 @@ public class ForwardLinked<T> implements Iterable<T> {
         if (head == null) {
             throw new NoSuchElementException();
         }
-        head = null;
-        return (T) head;
+        T value = head.value;
+        Node<T> next = head.next;
+        head.next = null;
+        head.value = null;
+        head = next;
+        return (T) value;
     }
 
     @Override
