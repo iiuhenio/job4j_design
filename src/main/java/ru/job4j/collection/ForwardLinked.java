@@ -31,12 +31,12 @@ public class ForwardLinked<T> implements Iterable<T> {
      * head.next - получить ссылку на второй элемент списка.
      * head.next.value - значение следующего узла и т.д.
      *
-     * Создадим новую переменную tmp, в поле значение - поместим значение первого элемента
-     * в поле ссылка - поместим ссылку на первый узел (head)
-     * таким образом, наша переменная tmp стала первым элементом в списке!
+     * созадим новый узел, в котором полем value сделаем значение первого элемента,
+     * а полем next - ссылку на первый элемент
+     * и прировняем созданный нами элемент к head
      */
     public void addFirst(T value) {
-        Node<T> tmp = new Node(value, head); /* создаем новый элемент со значениями value = value, next = null */
+        head = new Node(value, head); /* создаем новый элемент со значениями value = value, next = null */
         }
 
     public T deleteFirst() {
