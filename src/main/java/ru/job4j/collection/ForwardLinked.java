@@ -26,16 +26,29 @@ public class ForwardLinked<T> implements Iterable<T> {
         tail.next = node;
     }
 
+    /**
+     * head.value - получить значение первого элемента списка.
+     * head.next - получить ссылку на второй элемент списка.
+     * head.next.value - значение следующего узла и т.д.
+     *
+     * Создадим новую переменную tmp, в поле значение - поместим значение первого элемента
+     * в поле ссылка - поместим ссылку на первый узел (head)
+     * таким образом, наша переменная tmp стала первым элементом в списке!
+     */
+    public void addFirst(T value) {
+        Node<T> tmp = new Node(value, head); /* создаем новый элемент со значениями value = value, next = null */
+        }
+
     public T deleteFirst() {
         if (head == null) {
             throw new NoSuchElementException();
         }
-        T value = head.value;
-        Node<T> next = head.next;
-        head.next = null;
-        head.value = null;
-        head = next;
-        return value;
+        T value = head.value; /* записываем значение первой переменной во временную переменную */
+        Node<T> next = head.next; /* запис. ссылку 1й перем-й на след-ю в пер-ю next */
+        head.next = null; /* удаляем ссылку 1й перем-й на след-ю */
+        head.value = null; /* удаляем значение 1й перем-й */
+        head = next; /* возвращаем  */
+        return value; /* возвращаем удаленную переменную */
     }
 
     @Override
@@ -60,13 +73,13 @@ public class ForwardLinked<T> implements Iterable<T> {
         };
     }
 
-    private static class Node<T> {
-        T value;
-        Node<T> next;
+    private static class Node<T> { /* создаем класс Node */
+        T value; /* определяем поля: value типа Т */
+        Node<T> next; /* и объект next класса Node, содержащий любые значения  */
 
-        public Node(T value, Node<T> next) {
-            this.value = value;
-            this.next = next;
+        public Node(T value, Node<T> next) { /* создаем метод Node с перем. value типа Т и объект next Node */
+            this.value = value; /* инициализируем поле value */
+            this.next = next; /* инициализируем поле next */
         }
     }
 }
