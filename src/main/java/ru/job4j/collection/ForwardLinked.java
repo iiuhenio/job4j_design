@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
  */
 public class ForwardLinked<T> implements Iterable<T> {
     private Node<T> head;
+    private Node<T> tail;
 
     public void add(T value) {
         Node<T> node = new Node<T>(value, null);
@@ -24,6 +25,25 @@ public class ForwardLinked<T> implements Iterable<T> {
             tail = tail.next;
         }
         tail.next = node;
+    }
+
+    public boolean revert() {
+        if (!isEmpty() && head.next != null) {
+            tail = head; /* Тот элемент, кот. был первым, станет последним. Конец списка - бывашая голова списка */
+            Node<T> current = head.next; /* создаем переменную, ссылку на текущий узел. */
+            head.next = null; /* head теперь последний эл-т списка, а значит, не должен не на что указывать */
+            while (current != null) { /* до тех пор, пока текущий элемент не равен null */
+                Node<T> next = current.next; /* сохраняем ссылку на текущий элемент. Next ссылается на след. эл-т */
+                current.next = head; /* раньше current.next ссылался на след. эл-т, а теперь - на предыдущий */
+                head = current; /* смещаем все указатели вперед. В current ссылка на текущий элемент */
+                current = next; /* в current записываем next */
+            }
+        }
+        return false;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
     }
 
     /**
@@ -81,9 +101,5 @@ public class ForwardLinked<T> implements Iterable<T> {
             this.value = value; /* инициализируем поле value */
             this.next = next; /* инициализируем поле next */
         }
-    }
-
-    public boolean isEmpty() {
-        return head == null;
     }
 }
