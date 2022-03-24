@@ -28,7 +28,9 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public boolean revert() {
-        if (!isEmpty() && head.next != null) {
+        if (isEmpty() || head.next == null) {
+            return false;
+        }
             tail = head; /* Тот элемент, кот. был первым, станет последним. Конец списка - бывашая голова списка */
             Node<T> current = head.next; /* создаем переменную, ссылку на текущий узел. */
             head.next = null; /* head теперь последний эл-т списка, а значит, не должен не на что указывать */
@@ -38,8 +40,7 @@ public class ForwardLinked<T> implements Iterable<T> {
                 head = current; /* смещаем все указатели вперед. В current ссылка на текущий элемент */
                 current = next; /* в current записываем next */
             }
-        }
-        return false;
+        return true;
     }
 
     public boolean isEmpty() {
