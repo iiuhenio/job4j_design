@@ -28,7 +28,7 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public boolean revert() {
-        boolean rsl;
+        boolean rsl = true;
         if (isEmpty() || head.next == null) {
             rsl = false;
         } else {
@@ -41,7 +41,6 @@ public class ForwardLinked<T> implements Iterable<T> {
                 head = current; /* смещаем все указатели вперед. В current ссылка на текущий элемент */
                 current = next; /* в current записываем next */
             }
-            rsl = true;
         }
         return rsl;
     }
