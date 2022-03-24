@@ -8,14 +8,20 @@ public class SimpleQueue<T> {
     private final SimpleStack<T> out = new SimpleStack<>();
     private int countIn = 0;
     private int countOut = 0;
+    private int size;
+
+    public int getSize() {
+        return size;
+    }
 
     /**
      * Метод poll() - должен удалять первое значение из коллекции.
      * и возвращать его.
      */
 
-
     public T poll() {
+
+
         return out.pop(); /* удаляем первое значение из коллекции и возвращаем его */
     }
 
@@ -24,5 +30,17 @@ public class SimpleQueue<T> {
      */
     public void push(T value) {
         in.push(value);
+    }
+
+
+    public int inAdd(T value) {
+        in.push(value);
+        countIn++;
+        return countIn;
+    }
+    public int intOdd() {
+        in.pop();
+        size--;
+        return size;
     }
 }
