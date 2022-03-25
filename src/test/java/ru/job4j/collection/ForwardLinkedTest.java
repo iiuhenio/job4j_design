@@ -60,17 +60,17 @@ public class ForwardLinkedTest {
         assertThat(it.next(), is(1));
     }
 
-    //@Test
-    //public void whenSize0ThenReturnFalse() {
-    //    ForwardLinked<Integer> emptyList = new ForwardLinked<>();
-    //    assertFalse(emptyList.revert());
-    //}
-//
-    //@Test
-    //public void whenSize1ThenReturnFalse() {
-    //    ForwardLinked<Integer> singleList = new ForwardLinked<>();
-    //    singleList.add(1);
-    //    assertFalse(singleList.revert());
-    //}
+    @Test
+    public void whenSize0ThenReturnFalse() {
+        ForwardLinked<Integer> emptyList = new ForwardLinked<>();
+        assertFalse(emptyList.revert());
+    }
+
+    @Test
+    public void whenSize1ThenReturnFalse() {
+        ForwardLinked<Integer> singleList = new ForwardLinked<>();
+        singleList.add(1);
+        assertFalse(singleList.revert());
+    }
 
 }
