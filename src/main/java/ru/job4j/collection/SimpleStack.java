@@ -1,7 +1,5 @@
 package ru.job4j.collection;
 
-import java.util.Iterator;
-
 /**
  Данные очереди нужно хранить в ru.job4j.collection.SimpleStack. Для этого задания нужны два стека.
  Представьте, что у вас стопка с тарелками. Вам нужно достать нижнюю тарелку.
@@ -21,7 +19,14 @@ public class SimpleStack<T> {
     }
 
     public boolean isEmpty() {
-        Iterator<T> it = linked.iterator();
-        return !it.hasNext();
+        return linked.isEmpty();
     }
+
+    /**
+     * Реализация метода isEmpty с помощью итератора:
+     *
+     *  public boolean isEmpty() {
+     *  Iterator<T> it = linked.iterator();
+     *  return !it.hasNext();
+     */
 }
