@@ -21,7 +21,6 @@ public class SimpleStack<T> {
     public boolean isEmpty() {
         return linked.isEmpty();
     }
-
     /**
      * Реализация метода isEmpty с помощью итератора:
      *
