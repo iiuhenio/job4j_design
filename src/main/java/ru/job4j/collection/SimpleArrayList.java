@@ -40,6 +40,7 @@ public class SimpleArrayList<T> implements List<T> {
      */
     @Override
     public void add(T value) {
+        increase();
         container[size] = value;
         size++;
         modCount++;
