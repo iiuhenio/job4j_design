@@ -23,6 +23,16 @@ public class SimpleArrayList<T> implements List<T> {
         this.container = (T[]) new Object[capacity];
     }
 
+    /**
+     * метод расширения массива
+     */
+    public void increase() {
+        if (container.length == 0) {
+            container = Arrays.copyOf(container, container.length + 10);
+        } else {
+            container = Arrays.copyOf(container, container.length * 2);
+        }
+    }
 
     /**
      * добавить элемент
@@ -30,11 +40,6 @@ public class SimpleArrayList<T> implements List<T> {
      */
     @Override
     public void add(T value) {
-        if (container.length == 0) {
-            container = Arrays.copyOf(container, container.length + 10);
-        } else {
-            container = Arrays.copyOf(container, container.length * 2);
-        }
         container[size] = value;
         size++;
         modCount++;
@@ -48,8 +53,9 @@ public class SimpleArrayList<T> implements List<T> {
      */
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(0, size);
+        Objects.checkIndex(index, size);
         T oldValue = container[index];
+        container[index] = newValue;
         return oldValue;
     }
 
@@ -60,6 +66,7 @@ public class SimpleArrayList<T> implements List<T> {
      */
     @Override
     public T remove(int index) {
+        Objects.checkIndex(index, size);
         T oldValue = container[index];
         System.arraycopy(
                 container, index + 1, container, index, container.length - index - 1);
@@ -76,7 +83,7 @@ public class SimpleArrayList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
-        Objects.checkIndex(0, size);
+        Objects.checkIndex(index, size);
         return container[index];
     }
 
@@ -86,29 +93,29 @@ public class SimpleArrayList<T> implements List<T> {
      */
     @Override
     public int size() {
-        return container.length;
+        return size;
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             int count = 0;
+            int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                if ((expectedModCount != modCount)) {
+                    throw new ConcurrentModificationException();
+                }
                 return count < size;
             }
 
             @Override
             public T next() {
-                if (!iterator().hasNext()) {
-                    throw new NoSuchElementException();
-                }
-                int expectedModCount = 0;
-                if ((expectedModCount != modCount)) {
-                    throw new ConcurrentModificationException();
-                }
-                return null;
+                return container[count++];
             }
         };
     }
