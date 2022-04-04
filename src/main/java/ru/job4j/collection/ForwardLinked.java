@@ -98,7 +98,7 @@ public class ForwardLinked<T> implements Iterable<T> {
         T value; /* определяем поля: value типа Т */
         Node<T> next; /* и объект next класса Node, содержащий любые значения  */
 
-        public Node(T value, Node<T> next) { /* создаем метод Node с перем. value типа Т и объект next Node */
+        public Node(T value, Node<T> next) { /* создаем конструктор Node с перем. value типа Т и объект next Node */
             this.value = value; /* инициализируем поле value */
             this.next = next; /* инициализируем поле next */
         }
