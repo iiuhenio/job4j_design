@@ -25,4 +25,5 @@ public class User {
         map.put(user2, new Object());
         System.out.println(map);
     }
+
 }
