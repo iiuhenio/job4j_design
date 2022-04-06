@@ -22,19 +22,19 @@ public class SimpleSetTest {
         set.add(2);
         set.add(3);
     }
-/*
-    @Test
-    public void whenCheckIterator() {
-        Iterator<Integer> iterator = set.iterator();
-        Assert.assertTrue(iterator.hasNext());
-        Assert.assertEquals(Integer.valueOf(1), iterator.next());
-        Assert.assertTrue(iterator.hasNext());
-        Assert.assertEquals(Integer.valueOf(2), iterator.next());
-        Assert.assertTrue(iterator.hasNext());
-        Assert.assertEquals(Integer.valueOf(3), iterator.next());
-        Assert.assertFalse(iterator.hasNext());
-    }
-*/
+
+ @Test
+ public void whenCheckIterator() {
+     Iterator<Integer> iterator = set.iterator();
+     Assert.assertTrue(iterator.hasNext());
+     Assert.assertEquals(Integer.valueOf(1), iterator.next());
+     Assert.assertTrue(iterator.hasNext());
+     Assert.assertEquals(Integer.valueOf(2), iterator.next());
+     Assert.assertTrue(iterator.hasNext());
+     Assert.assertEquals(Integer.valueOf(3), iterator.next());
+     Assert.assertFalse(iterator.hasNext());
+ }
+
 
     @Test
     public void whenAddNonNull() {

@@ -6,31 +6,27 @@ import java.util.Objects;
 
 public class SimpleSet<T> implements Set<T> {
 
-    private int size = 3;
-    private SimpleArrayList<T> set = new SimpleArrayList<>(size);
+    private SimpleArrayList<T> set = new SimpleArrayList<>(3);
 
     @Override
     public boolean add(T value) {
-        boolean rsl;
-        if (set.size() == 0) {
+        boolean rsl = contains(value);
+        if (!rsl) {
             set.add(value);
             rsl = true;
         } else {
-            if (!contains(value)) {
-                set.add(value);
-                rsl = true;
-            } else {
-                rsl = false;
-            }
+            rsl = false;
         }
-        return rsl;
+    return rsl;
     }
+
 
     @Override
     public boolean contains(T value) {
-        boolean rsl = true;
+        boolean rsl = false;
         for (T index : set) {
             if (Objects.equals(index, value)) {
+                rsl = true;
                 break;
             }
         }
