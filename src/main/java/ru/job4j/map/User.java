@@ -1,9 +1,6 @@
 package ru.job4j.map;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class User {
     private String name;
@@ -23,7 +20,15 @@ public class User {
         Map<User, Object> map = new HashMap<>();
         map.put(user1, new Object());
         map.put(user2, new Object());
-        System.out.println(map);
+        System.out.println("hashCode map: " + map);
+        System.out.println("hashCode map: " + map.hashCode());
+        System.out.println("hashCode user1: " + user1.hashCode());
+        System.out.println("hashCode user2: " + user2.hashCode());
     }
 
+    @SuppressWarnings("checkstyle:EqualsHashCode")
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
+    }
 }
