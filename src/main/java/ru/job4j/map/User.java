@@ -20,15 +20,24 @@ public class User {
         Map<User, Object> map = new HashMap<>();
         map.put(user1, new Object());
         map.put(user2, new Object());
-        System.out.println("hashCode map: " + map);
-        System.out.println("hashCode map: " + map.hashCode());
-        System.out.println("hashCode user1: " + user1.hashCode());
-        System.out.println("hashCode user2: " + user2.hashCode());
+
+        System.out.println("map equals() only: " + map);
+        System.out.println("user1.hashCode(): " + user1.hashCode());
+        System.out.println("user2.hashCode(): " + user2.hashCode());
+        System.out.println("map.hashCode(): " + map.hashCode());
     }
 
-    @SuppressWarnings("checkstyle:EqualsHashCode")
     @Override
-    public int hashCode() {
-        return Objects.hash(name, children, birthday);
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return children == user.children
+                && Objects.equals(name, user.name)
+                && Objects.equals(birthday, user.birthday);
     }
 }
