@@ -21,7 +21,7 @@ public class User {
         map.put(user1, new Object());
         map.put(user2, new Object());
 
-        System.out.println("map equals() only: " + map);
+        System.out.println("map: " + map);
         System.out.println("user1.hashCode(): " + user1.hashCode());
         System.out.println("user2.hashCode(): " + user2.hashCode());
         System.out.println("map.hashCode(): " + map.hashCode());
@@ -39,5 +39,10 @@ public class User {
         return children == user.children
                 && Objects.equals(name, user.name)
                 && Objects.equals(birthday, user.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
     }
 }
