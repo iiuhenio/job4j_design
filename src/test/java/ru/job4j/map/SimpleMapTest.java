@@ -66,11 +66,4 @@ SimpleMap<Integer, String> table = new SimpleMap<>();
         Iterator<Integer> it = table.iterator();
         Assert.assertEquals(Integer.valueOf(1), it.next());
     }
-
-
-
-   //@Test (expected = NoSuchElementException.class)
-   //public void iteratorNext() {
-   //    Assert.assertTrue(table.iterator().next(), "Volodya");
-   //}
 }
