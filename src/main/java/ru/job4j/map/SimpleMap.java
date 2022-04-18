@@ -6,7 +6,8 @@ import java.util.*;
 /**
 В этом задании вам необходимо реализовать собственную мапу.
  */
-public class SimpleMap<K, V, element> implements Map<K, V> {
+
+public class SimpleMap<K, V> implements Map<K, V> {
 
     /**
      * Объявим следующие поля:
@@ -29,11 +30,9 @@ public class SimpleMap<K, V, element> implements Map<K, V> {
     public boolean put(K key, V value) {
         expand(); /* проверяем размер массива, увеличиваем при необходимости */
         MapEntry<K, V> element = new MapEntry<>(key, value); /* создаем элемент */
-        boolean rsl;
         int index = indexFor(hash(key.hashCode())); /* создаем переменную индекс и вычисляем его */
-        if (table[index] != null) { /* проверяем, что ячейка пустая */
-            rsl = false;
-        } else {
+        boolean rsl = table[index] == null; /* проверяем, что ячейка пустая */
+        if (rsl) {
             table[index] = element; /* вставляем элемент в индекс */
             count++;
             modCount++;
@@ -53,22 +52,22 @@ public class SimpleMap<K, V, element> implements Map<K, V> {
      * Вычисляем конечный индекс
      */
     private int indexFor(int hash) {
-        return hash & capacity - 1;
+        return hash & (capacity - 1);
     }
 
     /**
      * Создаем метод расширения массива
      */
     private void expand() {
-        if (count / capacity >= LOAD_FACTOR) {
-            capacity = capacity * 2;
+        if ((float) count / capacity >= LOAD_FACTOR) { /* пероверяем, нужно ли расширять массив */
+            capacity = capacity * 2; /* если надо, увеличиваем в 2 раза */
             MapEntry<K, V>[] newTable = (MapEntry<K, V>[]) new MapEntry[capacity];
             for (MapEntry<K, V> i : newTable) {
                 if (i != null) {
-                    newTable[indexFor(hash((Integer) i.key))] = i;
+                    newTable[indexFor(hash(i.key.hashCode()))] = i;
                 }
             }
-            table = newTable;
+            table = newTable; /* старый массив = новый массив */
         }
     }
 
@@ -79,7 +78,7 @@ public class SimpleMap<K, V, element> implements Map<K, V> {
     public V get(K key) {
         V rsl; /* значение */
         int index = indexFor(hash(key.hashCode())); /* вычисляем индекс */
-        if (table[index] != null && table[index].key == key) {
+        if (table[index] != null && table[index].key.equals(key)) {
             rsl = table[index].value;
         } else {
             rsl = null;
@@ -94,7 +93,7 @@ public class SimpleMap<K, V, element> implements Map<K, V> {
     public boolean remove(K key) {
         boolean rsl = false;
         int index = indexFor(hash(key.hashCode()));
-        if (table[index] != null && table[index].key == key) {
+        if (table[index] != null && table[index].key.equals(key)) {
             table[index] = null;
             count--;
             modCount++;
@@ -125,8 +124,8 @@ public class SimpleMap<K, V, element> implements Map<K, V> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                if (table[point] == null) {
-                    iterator().next();
+                while (point < capacity && table[point] == null) {
+                    point++;
                 }
                 return table[point++].key;
             }
