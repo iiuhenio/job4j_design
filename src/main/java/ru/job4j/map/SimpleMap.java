@@ -29,12 +29,16 @@ public class SimpleMap<K, V, element> implements Map<K, V> {
     public boolean put(K key, V value) {
         expand(); /* проверяем размер массива, увеличиваем при необходимости */
         MapEntry<K, V> element = new MapEntry<>(key, value); /* создаем элемент */
-        boolean rsl = false;
+        boolean rsl;
         int index = indexFor(hash(key.hashCode())); /* создаем переменную индекс и вычисляем его */
-        table[index] = element; /* вставляем элемент в индекс */
-        count++;
-        modCount++;
-        rsl = true;
+        if (table[index] != null) { /* проверяем, что ячейка пустая */
+            rsl = false;
+        } else {
+            table[index] = element; /* вставляем элемент в индекс */
+            count++;
+            modCount++;
+            rsl = true;
+        }
         return rsl;
     }
 
@@ -42,36 +46,40 @@ public class SimpleMap<K, V, element> implements Map<K, V> {
      * вычисляем hash
      */
     private int hash(int hashCode) {
-        return hashCode % table.length;
+        return hashCode % capacity;
     }
 
     /**
      * Вычисляем конечный индекс
      */
     private int indexFor(int hash) {
-        return hash & table.length - 1;
+        return hash & capacity - 1;
     }
 
     /**
      * Создаем метод расширения массива
      */
     private void expand() {
-        if (table.length == 0) {
-            table = Arrays.copyOf(table, table.length + capacity); /* если длинна 0, то 8 */
-        }
-        if (count % capacity == LOAD_FACTOR) {
-            table = Arrays.copyOf(table, table.length * 2); /* при заполнении 75% увеличиваем */
+        if (count / capacity >= LOAD_FACTOR) {
+            capacity = capacity * 2;
+            MapEntry<K, V>[] newTable = (MapEntry<K, V>[]) new MapEntry[capacity];
+            for (MapEntry<K, V> i : newTable) {
+                if (i != null) {
+                    newTable[indexFor(hash((Integer) i.key))] = i;
+                }
+            }
+            table = newTable;
         }
     }
 
     /**
-     * Создаем метод получения элемента по индексу
+     * Создаем метод получения значения элемента по индексу
      */
     @Override
     public V get(K key) {
         V rsl; /* значение */
         int index = indexFor(hash(key.hashCode())); /* вычисляем индекс */
-        if (table[index] != null) {
+        if (table[index] != null && table[index].key == key) {
             rsl = table[index].value;
         } else {
             rsl = null;
@@ -85,14 +93,12 @@ public class SimpleMap<K, V, element> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         boolean rsl = false;
-        for (int i = 0; i < table.length; i++) {
-            if (table[i] == table[i].key) {
-                table[i] = null;
-                count--;
-                modCount++;
-                rsl = true;
-                break;
-            }
+        int index = indexFor(hash(key.hashCode()));
+        if (table[index] != null && table[index].key == key) {
+            table[index] = null;
+            count--;
+            modCount++;
+            rsl = true;
         }
         return rsl;
     }
@@ -118,6 +124,9 @@ public class SimpleMap<K, V, element> implements Map<K, V> {
             public K next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
+                }
+                if (table[point] == null) {
+                    iterator().next();
                 }
                 return table[point++].key;
             }
