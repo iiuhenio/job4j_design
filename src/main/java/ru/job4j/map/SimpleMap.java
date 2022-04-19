@@ -36,7 +36,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
             table[index] = element; /* вставляем элемент в индекс */
             count++;
             modCount++;
-            rsl = true;
         }
         return rsl;
     }
@@ -110,22 +109,20 @@ public class SimpleMap<K, V> implements Map<K, V> {
         return new Iterator<K>() {
             int expectedModCount = modCount; /* не должно быть изменений в момент итерирования */
             int point = 0;
-
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return point < table.length;
+                while (table[point] == null) {
+                    point++;
+                }
+                return point < capacity;
             }
-
             @Override
             public K next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
-                }
-                while (point < capacity && table[point] == null) {
-                    point++;
                 }
                 return table[point++].key;
             }
