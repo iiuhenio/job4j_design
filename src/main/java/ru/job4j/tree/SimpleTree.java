@@ -1,6 +1,7 @@
 package ru.job4j.tree;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class SimpleTree<E> implements Tree<E> {
     private final Node<E> root; /* поле "корень дерева" */
@@ -15,14 +16,16 @@ public class SimpleTree<E> implements Tree<E> {
      * Если child есть, то метод должен вернуть false.
      * @param parent - искомый элемент
      * @param child - элемент, который добавляем в искомый
-     * @return
+     *
+     * Значение строк метода по порядку сверху вниз:
+     * если parent существует а child нет
+     * то полчаем значение parent, и в поле children добавляем новый узел child
      */
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
-        if (findBy(parent).isPresent() && findBy(child).isEmpty()) { /* если parent существует а child нет */
-            findBy(parent).get().children.add(new Node<>(child)); /* то полчаем значение parent,
-            и в поле children добавляем новый узел child  */
+        if (findBy(parent).isPresent() && findBy(child).isEmpty()) {
+            findBy(parent).get().children.add(new Node<>(child));
             rsl = true;
         }
         return rsl;
@@ -42,6 +45,27 @@ public class SimpleTree<E> implements Tree<E> {
             data.addAll(el.children); /* добавляем все элементы в очередь */
         }
         return rsl; /* результат равен el */
+    }
+
+    /**
+     *
+     Метод должен проверять количество дочерних элементов в дереве. Если их > 2 - то дерево не бинарное
+     Метод должен циклически пройти по всем элементам дерева, аналогично методу findBy().
+     * @return
+     */
+    public boolean isBinary() {
+        return false;
+    }
+
+    /**
+     * Обратите внимание, что методы isBinary() и findBy() идентичны.
+     * Ваша задача отрефакторить код, создав вспомогательный метод.
+     * Этот метод уже использовать в методах isBinary() и findBy()
+     * @param condition
+     * @return
+     */
+    private Optional<Node<E>> findByPredicate(Predicate<Node<E>> condition) {
+        return null;
     }
 
     public static void main(String[] args) {
