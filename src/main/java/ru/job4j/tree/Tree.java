@@ -19,12 +19,15 @@ public interface Tree<E> {
 
     /**
      * Класс Node описывает узел дерева. Узел содержит хранимое значение и ссылки на дочерние узлы.
+     * хранимое значение
+     * ссылки на "детей"
+     * конструктор узла Node?
      */
     class Node<E> {
-        final E value; /* хранимое значение */
-        final List<Node<E>> children = new ArrayList<>(); /* ссылки на "детей" */
+        final E value;
+        final List<Node<E>> children = new ArrayList<>();
 
-        public Node(E value) { /* конструктор узла Node? */
+        public Node(E value) {
             this.value = value;
         }
     }

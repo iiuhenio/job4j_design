@@ -3,11 +3,17 @@ package ru.job4j.tree;
 import java.util.*;
 import java.util.function.Predicate;
 
+/**
+ *  поле "корень дерева"
+ */
 public class SimpleTree<E> implements Tree<E> {
-    private final Node<E> root; /* поле "корень дерева" */
+    private final Node<E> root;
 
+    /**
+     * конструктор нового узла
+     */
     public SimpleTree(final E root) {
-        this.root = new Node<>(root); /* конструктор нового узла */
+        this.root = new Node<>(root);
     }
 
     /**
@@ -31,20 +37,33 @@ public class SimpleTree<E> implements Tree<E> {
         return rsl;
     }
 
+    /**
+     * Пояснение строк метода снизу вверх:
+     * принимает значение, которое нужно найти
+     * создаем объект rsl типа Optional
+     * создаем объект типа Линкедлист/Очередь (ПППУ)
+     * добавляем корневой узел в список
+     * перебираем пока список не пустой
+     * el = извлекаемый элемент
+     * если значение элемента el равно искомому значению
+     * результат = el
+     * добавляем все элементы в очередь
+     * результат равен el
+     */
     @Override
-    public Optional<Node<E>> findBy(E value) { /* принимает значение, которое нужно найти */
-        Optional<Node<E>> rsl = Optional.empty(); /* создаем объект rsl типа Optional */
-        Queue<Node<E>> data = new LinkedList<>(); /* создаем объект типа Линкедлист/Очередь (ПППУ) */
-        data.offer(this.root); /* добавляем корневой узел в список */
-        while (!data.isEmpty()) { /* перебираем пока список не пустой */
-            Node<E> el = data.poll(); /* el = извлекаемый элемент */
-            if (el.value.equals(value)) { /* если значение элемента el равно искомому значению */
-                rsl = Optional.of(el); /* результат = el */
-                break; /* заканчиваем выполнение программы */
+    public Optional<Node<E>> findBy(E value) {
+        Optional<Node<E>> rsl = Optional.empty();
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.root);
+        while (!data.isEmpty()) {
+            Node<E> el = data.poll();
+            if (el.value.equals(value)) {
+                rsl = Optional.of(el);
+                break;
             }
-            data.addAll(el.children); /* добавляем все элементы в очередь */
+            data.addAll(el.children);
         }
-        return rsl; /* результат равен el */
+        return rsl;
     }
 
     /**
