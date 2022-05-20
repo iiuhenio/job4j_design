@@ -1,6 +1,7 @@
 package ru.job4j.iu;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * В первом блоке курса было задание на вывод таблицы умножения на консоль.
@@ -34,7 +35,7 @@ public class ResultFile {
                 }
                 out.write(System.lineSeparator().getBytes());
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
