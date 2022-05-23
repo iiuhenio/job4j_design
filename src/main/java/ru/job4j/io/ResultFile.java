@@ -1,4 +1,4 @@
-package ru.job4j.iu;
+package ru.job4j.io;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,5 +39,4 @@ public class ResultFile {
             e.printStackTrace();
         }
     }
-
 }
