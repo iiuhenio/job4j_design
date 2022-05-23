@@ -1,12 +1,11 @@
 package ru.job4j.io;
 
-/**
- * данный класс позволяет прочитать данные из файла
- */
+
 import java.io.FileInputStream;
 import java.io.InputStream;
 
 /**
+ * класс java.io.FileInputStream позволяет прочитать данные из файла
  * В этом уркое мы узнаем, как прочитать файл
  * Создайте файл в корне проекта. Дайте ему имя input.txt.
  *
@@ -20,7 +19,7 @@ public class ReadFile {
             StringBuilder text = new StringBuilder();
             int read;
             while ((read = in.read()) != -1) {
-                text.append((char) read); // преобразовывает read в  char и добавляет к text
+                text.append((char) read);
             }
 
             String[] lines = text.toString().split(System.lineSeparator());
