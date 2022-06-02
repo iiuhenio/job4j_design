@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Задание.
+ * Задание:
  * 1. Реализуйте метод unavailable(). source - путь к файлу лога.
  * target - имя путь к файлу результата анализа.
  * 2. Метод unavailable() должен находить диапазоны, когда сервер не работал.
