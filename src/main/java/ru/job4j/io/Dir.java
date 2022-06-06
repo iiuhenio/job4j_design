@@ -11,9 +11,12 @@ public class Dir {
         if (!file.isDirectory()) {
             throw new IllegalArgumentException(String.format("Not directory %s", file.getAbsoluteFile()));
         }
+        /**
+         * getTotalSpace() показывает размер файла в байтах
+         */
         System.out.println(String.format("size : %s", file.getTotalSpace()) + " байт");
         for (File subfile : file.listFiles()) {
-            System.out.println(subfile.getAbsoluteFile() + ": " + subfile.length() + " байт");
+            System.out.println(String.format("директория %s, размер %s", subfile.getAbsoluteFile(), subfile.length() + " байт"));
         }
     }
 }
