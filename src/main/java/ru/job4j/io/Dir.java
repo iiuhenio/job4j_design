@@ -16,7 +16,7 @@ public class Dir {
          */
         System.out.println(String.format("size : %s", file.getTotalSpace()) + " байт");
         for (File subfile : file.listFiles()) {
-            System.out.println(String.format("директория %s, размер %s", subfile.getAbsoluteFile(), subfile.length() + " байт"));
+            System.out.println(String.format("директория %s, размер %s байт", subfile.getAbsoluteFile(), subfile.length()));
         }
     }
 }
