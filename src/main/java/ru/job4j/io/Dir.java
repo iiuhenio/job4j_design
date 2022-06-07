@@ -14,7 +14,7 @@ public class Dir {
         /**
          * getTotalSpace() показывает размер файла в байтах
          */
-        System.out.println(String.format("size : %s", file.getTotalSpace()) + " байт");
+        System.out.println(String.format("size : %s байт", file.getTotalSpace()));
         for (File subfile : file.listFiles()) {
             System.out.println(String.format("директория %s, размер %s байт", subfile.getAbsoluteFile(), subfile.length()));
         }
